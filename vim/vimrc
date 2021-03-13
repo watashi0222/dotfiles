@@ -1,0 +1,83 @@
+"" Encoding
+set encoding=utf-8
+set fileencodings=utf-8
+set fileencodings=utf-8,cp932,sjis,euc-jp,iso-2022-jp
+set fileformats=unix,dos,mac
+
+"" Space/Tab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set autoindent
+set smartindent
+
+"" Visual
+set number
+set list
+set laststatus=2
+set statusline=%<%f\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v\ %l/%L
+
+"" Search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+"" Clipboard
+set clipboard+=unnamed
+" set clipboard+=autoselect
+
+"" Sound
+set belloff=all
+
+"" Split
+set splitbelow
+set splitright
+set tabpagemax=30
+
+"" Swap/Backup
+set noswapfile
+set nobackup
+set noundofile
+
+"" Other
+set backspace=indent,eol,start
+set ambiwidth=double
+
+"" dein.vim
+if &compatible
+  set nocompatible
+endif
+
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if !isdirectory(s:dein_repo_dir)
+  execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+endif
+
+if &runtimepath !~# '/dein.vim'
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  let s:toml_dir  = expand('~/.vim/dein')
+  let s:toml      = s:toml_dir . '/dein.toml'
+  let s:toml_lazy      = s:toml_dir . '/dein_lazy.toml'
+
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:toml_lazy, {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
+
+filetype plugin indent on
+syntax enable
+colorscheme iceberg
